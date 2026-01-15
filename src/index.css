@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=KoHo&display=swap");
+
+@theme {
+  --color-black: #0A0903;
+  --color-red: #922123;
+  --color-dark-red: #421C1C;
+  --color-light-red: #C03739;
+  --color-blue: #214E92;
+  --color-light-blue: #4273BD;
+  --color-strong-red: #E30D0D;
+  --font-konkhmer: "Konkhmer Sleokchher", cursive;
+  --font-koho: "KoHo", sans-serif;
+}
+
+body {
+  background-color: #0A0903;
+}
