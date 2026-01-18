@@ -1,8 +1,12 @@
+import { useDispatch } from "react-redux";
 import { Button } from "../components/button";
-
+import { openModal } from "../redux/modalsSlice";
 
 
 export const LandingPage = () => {
+    
+    const dispatch = useDispatch();
+
     return (
         <>
             <img src="./octagon.png" className="fixed -z-10 h-screen w-[70%]     
@@ -12,8 +16,9 @@ export const LandingPage = () => {
                 <p className="text-strong-red text-3xl font-koho font-bold italic">- Bets -</p>
                 <img className="w-100 h-60" src="./UFC.png" />
                 <div>
-                    <Button>Sign up</Button>
-                    <Button variant="secondary">Login</Button>
+                    <Button onClick={() => dispatch(openModal('signUpModal'))}>Sign up</Button>
+                    
+                    <Button variant="secondary" onClick={() => dispatch(openModal('loginModal'))}>Login</Button>
                 </div>
             </div>
         </>
