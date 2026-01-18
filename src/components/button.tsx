@@ -6,6 +6,7 @@ interface ButtonProps {
     children: React.ReactNode,
     onClick?: ()=> void,
     variant?: Variant
+    type?: 'button' | 'submit'
 }
 
 
@@ -13,6 +14,7 @@ export const Button = ({
     children,
     onClick,
     variant = 'primary',
+    type = 'button',
 }: ButtonProps ) => {
 
   const bgClass =
@@ -28,6 +30,7 @@ export const Button = ({
                 ${bgClass}
             `}
             onClick={onClick}
+            type={type}
         >
             {children}
         </button>
