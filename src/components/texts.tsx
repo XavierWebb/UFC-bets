@@ -14,7 +14,14 @@ export const Tittle = ({children}: TextProps) => {
 
 export const Text_One = ({children}: TextProps) => {
     return (
-        <p className="text-white font-koho text-2xl m-4 italic">
+        <p className="text-white font-koho text-2xl m-4">
+            {children}
+        </p>
+    )
+}
+export const Text_Two = ({children}: TextProps) => {
+    return (
+        <p className="text-white font-koho text-3xl m-4">
             {children}
         </p>
     )

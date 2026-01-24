@@ -1,6 +1,6 @@
 import type React from "react"
 
-type Variant = "primary" | "secondary"
+type Variant = "primary" | "secondary" | "tertiary"
 
 interface ButtonProps {
     children: React.ReactNode,
@@ -22,13 +22,17 @@ export const Button = ({
         ? "bg-gray-500 cursor-not-allowed opacity-60"
         : variant === "secondary"
             ? "bg-blue hover:bg-light-blue"
-            : "bg-red hover:bg-light-red"
+            : variant === 'primary'
+                 ? "bg-red hover:bg-light-red"
+                 : variant == 'tertiary'
+                    ? 'bg-transparent text-white hover:text-gray-400'
+                    : ''
 
     return (
         <button 
             className={`font-konkhmer-regular font-bold m-4 text-2xl text-center 
                 rounded-lg py-3 px-8 text-white
-                transition-all duration-500
+                transition-all duration-500 cursor-pointer
                 ${bgClass}
             `}
             onClick={onClick}
