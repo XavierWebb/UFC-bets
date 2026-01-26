@@ -58,9 +58,21 @@ const Users = createSlice({
             if (user){
                 state.currentAccount = user;
             }
+        },
+
+        updateBalance: (state, action: PayloadAction<number>) => {
+            const user = state.AllAccounts.find(
+                acc => acc.name == state.currentAccount.name
+            );
+
+            state.currentAccount.balance += action.payload;
+
+            if (user) {
+                user.balance += action.payload;
+            };
         }
     }
 });
 
 export default Users.reducer;
-export const { createUser, loginUser} = Users.actions;
+export const { createUser, loginUser, updateBalance} = Users.actions;
