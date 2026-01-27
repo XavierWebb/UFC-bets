@@ -15,7 +15,7 @@ const schema = z.object({
     password: z.string(),
     email: z.string(),
     balance: z.number(),
-    registredAt: z.date()
+    registredAt: z.date(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -38,7 +38,12 @@ const SignupModal = () => {
 
     const onSubmit = (data: FormData) => {
         dispatch(closeModal('signUpModal'))
-        dispatch(createUser(data))
+        dispatch(createUser({
+            ...data,
+            wins: 0,
+            defeats: 0,
+            earned: 0,
+        }))
         reset()
     };
 
