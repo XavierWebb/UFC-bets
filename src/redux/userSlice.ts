@@ -6,6 +6,9 @@ type User = {
     password: string,
     email: string,
     balance: number,
+    wins: number,
+    defeats: number,
+    earned: number,
     registredAt: Date | 'not_yet',
 };
 
@@ -14,6 +17,9 @@ type UserType = {
     password: string,
     email: string,
     balance: number,
+    wins: number,
+    defeats: number,
+    earned: number,
     registredAt: Date | 'not_yet',
 };
 
@@ -30,6 +36,9 @@ const initialState: initialStateInter = {
         password: '',
         email: '',
         balance: 0,
+        wins: 0,
+        defeats: 0,
+        earned: 0,
         registredAt: 'not_yet'
     },
     AllAccounts: [],
