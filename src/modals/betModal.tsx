@@ -65,6 +65,7 @@ export const BetModal = () => {
                 <div className="flex">
                     <Button
                         variant="tertiary"
+                        type='button'
                         onClick={() => {
                             reset();
                             dispatch(closeModal("betModal"));

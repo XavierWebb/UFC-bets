@@ -58,13 +58,13 @@ const Users = createSlice({
             state.currentAccount = newUser;
             state.nextId += 1
         },
-        loginUser: (state, action: PayloadAction<{name: string, password: string}>) => {
+        loginUser: (state, action: PayloadAction<{ name: string, password: string }>) => {
             const user = state.AllAccounts.find(
                 acc => acc.name == action.payload.name && acc.password == action.payload.password
 
             );
 
-            if (user){
+            if (user) {
                 state.currentAccount = user;
             }
         },
@@ -79,9 +79,33 @@ const Users = createSlice({
             if (user) {
                 user.balance += action.payload;
             };
+        },
+
+        setWins: (state) => {
+            const user = state.AllAccounts.find(
+                acc => acc.name == state.currentAccount.name
+            );
+            state.currentAccount.wins += 1
+
+            if (user) {
+                user.wins += 1
+            }
+        },
+
+        setDefeats: (state) => {
+            const user = state.AllAccounts.find(
+                acc => acc.name == state.currentAccount.name
+            );
+
+            state.currentAccount.defeats += 1
+
+
+            if (user) {
+                user.defeats += 1
+            }
         }
     }
 });
 
 export default Users.reducer;
-export const { createUser, loginUser, updateBalance} = Users.actions;
+export const { createUser, loginUser, updateBalance, setWins, setDefeats } = Users.actions;

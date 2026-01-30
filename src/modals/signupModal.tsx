@@ -50,7 +50,7 @@ const SignupModal = () => {
     if (modal) {
         return (
             <BaseModal title="Sign Up">
-                <form className='items-center flex flex-col' onSubmit={handleSubmit(onSubmit)}>
+                <form className='items-center flex flex-col text-center' onSubmit={handleSubmit(onSubmit)}>
                     <TextInput
                         placeHolder="name"
                         {...register('name')}

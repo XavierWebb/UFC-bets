@@ -23,7 +23,7 @@ export const BaseModal = ({
                 ${visible ? "opacity-100" : "opacity-0"}
                 `}
             >
-                <div className="flex flex-col z-0 bg-black max-w-1/2 max-h-11/12 text-white  items-center p-10 border-gray-900 border-3 rounded-4xl">
+                <div className="flex flex-col z-0 bg-black w-1/3 max-h-11/12 text-white  items-center p-10 border-gray-900 border-3 rounded-4xl">
                     <Tittle>{title}</Tittle>
                     {children}
                 </div>

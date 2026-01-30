@@ -80,7 +80,7 @@ export const Wallet = () => {
                         {money} USD
                     </MoneyInWallet>
 
-                    <div className="flex">
+                    <div className="flex text-center">
                         <Button variant="tertiary" onClick={() => dispatch(closeModal('walletModal'))}>Cancel</Button>
                         <Button variant="tertiary" onClick={() => setStep(2)}>Withdraw</Button>
                         <Button onClick={() => setStep(1)}>Deposit</Button>
@@ -90,7 +90,7 @@ export const Wallet = () => {
         } else if (step == 1) {
             return (
                 <BaseModal title="Deposit">
-                    <form className="flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
+                    <form className="flex flex-col items-center text-center" onSubmit={handleSubmit(onSubmit)}>
                         <Text_One>Our bank Adress:</Text_One>
                         <p className="font-extrabold text-2xl mb-5">fakeBankAccountAdress</p>
 
@@ -118,7 +118,7 @@ export const Wallet = () => {
         } else if (step == 2) {
             return (
                 <BaseModal title="Withdraw">
-                    <form className='flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
+                    <form className='flex flex-col items-center text-center' onSubmit={handleSubmit(onSubmit)}>
                         <TextInput
                             placeholder="Your Bank Account"
                             {...register('accountName')}

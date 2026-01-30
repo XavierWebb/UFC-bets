@@ -8,8 +8,9 @@ import { Navbar } from "../components/navbar";
 import { useObserver } from "../common/observer";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../redux/modalsSlice";
-import { updateBalance } from "../redux/userSlice";
+import { setDefeats, setWins, updateBalance } from "../redux/userSlice";
 import type { RootState } from "../redux/store";
+import { setBet } from "../redux/betsSlice";
 
 interface FigtherSelection {
     children: React.ReactNode,
@@ -46,27 +47,32 @@ export const BetsPage = () => {
     const money = useSelector((state: RootState) => state.bets.amount)
     const [betPlaced, setBetPlaced] = useState(false);
     const modalOpen = useSelector((state: RootState) => state.modals.betModal);
+    const [disableSkip, setDisableSkip] = useState(false);
 
     const handleClick = () => {
+        const result = FightLogic({
+            fighterOne: FightCard.fights[fight].fighter_one,
+            fighterTwo: FightCard.fights[fight].fighter_two,
+        });
+
+        setWinner(result);
+        setEnableResults(true)
+        setDisableSkip(false)
         if (fighter !== '') {
-            const result = FightLogic({
-                fighterOne: FightCard.fights[fight].fighter_one,
-                fighterTwo: FightCard.fights[fight].fighter_two,
-            });
-
-            setWinner(result);
-            setEnableResults(true);
-
-            if (result === fighter) {
-                dispatch(updateBalance(money));
-            } else {
-                dispatch(updateBalance(-money));
+            if (money > 0) {
+                if (result === fighter) {
+                    dispatch(updateBalance(money));
+                    dispatch(setWins())
+                } else {
+                    dispatch(updateBalance(-money));
+                    dispatch(setDefeats())
+                }
             }
         }
     };
 
     useEffect(() => {
-        if (!modalOpen && betPlaced && money > 0) {
+        if (!modalOpen && betPlaced) {
             handleClick();
             setBetPlaced(false);
         }
@@ -79,6 +85,7 @@ export const BetsPage = () => {
             setFight(prev => prev + 1);
             setWinner('');
             setFighter('');
+            dispatch(setBet(0))
         }
     }
 
@@ -113,22 +120,33 @@ export const BetsPage = () => {
                 <Tittle>{fight + 1} of {FightCard.fights.length} fights</Tittle>
 
                 <div className=" h-11/12 flex flex-col justify-center items-center">
-                    {fighter !== '' && winner !== '' ? (
-                        winner === fighter ? (
+                    {winner !== '' && !modalOpen ? (
+                        money > 0 ? (
+                            winner === fighter ? (
+                                <>
+                                    <Text_One>
+                                        Congratulations! The winner is {winner} and you won ${money}
+                                    </Text_One>
+                                    <Button onClick={nextFight}>
+                                        Next Fight
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Text_One>
+                                        Better luck next time! The winner is {winner}
+                                    </Text_One>
+                                    <Button onClick={nextFight}>Next Fight</Button>
+                                </>
+                            )
+                        ) : (
                             <>
                                 <Text_One>
-                                    Congratulations! The winner is {winner} and you won ${money}
+                                    The winner is {winner}!
                                 </Text_One>
                                 <Button onClick={nextFight}>
                                     Next Fight
                                 </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Text_One>
-                                    Better luck next time! The winner is {winner}
-                                </Text_One>
-                                <Button onClick={nextFight}>Next Fight</Button>
                             </>
                         )
                     ) : (
@@ -143,6 +161,7 @@ export const BetsPage = () => {
                                     if (fighter == '') {
                                         setFighter(FightCard.fights[fight].fighter_one.name)
                                         setEnableResults(false)
+                                        setDisableSkip(true)
                                     }
                                 }}>{FightCard.fights[fight].fighter_one.name}</FighterSelection>
 
@@ -154,6 +173,7 @@ export const BetsPage = () => {
                                 onClick={() => {
                                     if (fighter == '') {
                                         setEnableResults(false)
+                                        setDisableSkip(true)
                                         setFighter(FightCard.fights[fight].fighter_two.name)
                                     }
                                 }}>{FightCard.fights[fight].fighter_two.name}</FighterSelection>
@@ -161,6 +181,7 @@ export const BetsPage = () => {
                                 setBetPlaced(true);
                                 dispatch(openModal('betModal'))
                             }}>Bet</Button>
+                            <Button variant="secondary" disabled={disableSkip} onClick={handleClick}>Skip</Button>
                         </>
                     )}
 
