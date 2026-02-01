@@ -8,7 +8,15 @@ export const Navbar = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="flex justify-end mb-10">
+        <div className="
+            flex items-center
+            gap-2
+            mb-10
+
+            md: flex-row
+            md: justify-end
+            md:gap-0
+        ">
             <Button variant="tertiary" onClick={()=>navigate('/')}>Home</Button>
             <Button variant="tertiary" onClick={()=> dispatch(openModal('walletModal'))}>Wallet</Button>
             <Button variant="tertiary" onClick={()=>navigate('/profile')}>Profile</Button>
