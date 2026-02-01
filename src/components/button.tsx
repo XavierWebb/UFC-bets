@@ -23,16 +23,20 @@ export const Button = ({
         : variant === "secondary"
             ? "bg-blue hover:bg-light-blue"
             : variant === 'primary'
-                 ? "bg-red hover:bg-light-red"
-                 : variant == 'tertiary'
+                ? "bg-red hover:bg-light-red"
+                : variant == 'tertiary'
                     ? 'bg-transparent text-white hover:text-gray-400'
                     : ''
 
     return (
-        <button 
-            className={`font-konkhmer-regular font-bold m-4 text-2xl text-center 
-                rounded-lg py-3 px-8 text-white
-                transition-all duration-500 cursor-pointer
+        <button
+            className={`        
+            font-konkhmer-regular font-bold
+            text-xl md:text-2xl
+            m-1 md:m-4
+            rounded-lg py-2 md:py-3 px-6 md:px-8
+            text-white text-center
+            transition-all duration-500 cursor-pointer
                 ${bgClass}
             `}
             onClick={onClick}

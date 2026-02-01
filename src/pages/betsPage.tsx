@@ -23,7 +23,22 @@ const FighterSelection = ({ children, onClick, disabled }: FigtherSelection) => 
         <p
             onClick={!disabled ? onClick : undefined}
             className={`
-                text-center font-koho text-2xl m-2 italic w-md rounded-xl p-4 select-none
+                text-center 
+                font-koho 
+                text-xl
+                m-2
+                italic 
+                rounded-xl 
+                px-10
+                py-4
+                w-full 
+                select-none
+
+                lg:m-2
+                lg:w-md
+                lg:p-4
+                lg:text-2xl
+
                 transition-all duration-500
                 ${disabled
                     ? "bg-gray-600 text-gray-300 cursor-not-allowed opacity-60"
@@ -99,24 +114,48 @@ export const BetsPage = () => {
         `}>
             <Navbar />
             {winner == '' && (
-                <div className="fixed inset-0 flex -z-10 gap-7.25 px-32 pt-14">
-                    <div className="w-[50vw] flex justify-center items-end">
+                <div className="fixed inset-0 flex 
+                -z-10
+                justify-center
+                items-center
+                
+                lg:gap-7.25 
+                lg:px-32 
+                lg:pt-14">
+                    <div className="flex justify-center items-end
+                    lg:w-[50vw]
+                    ">
                         <img
                             src={FightCard.fights[fight].fighter_one.img}
-                            className=" object-contain h-[50vw]"
+                            className=" object-contain 
+                            h-1/2
+                            lg:h-[50vw]"
                         />
                     </div>
 
-                    <div className="w-[50vw] flex justify-center items-end">
+                    <div className="flex justify-center items-end
+                    lg:w-[50vw]
+                    ">
                         <img
                             src={FightCard.fights[fight].fighter_two.img}
-                            className="scale-x-[-1] object-contain h-[50vw]"
+                            className="scale-x-[-1] object-contain 
+                            h-1/2
+                            lg:h-[50vw]"
                         />
                     </div>
                 </div>
             )
             }
-            <div className="h-screen flex-col flex items-center my-14 mx-32">
+            <div className="
+            h-screen 
+            flex-col 
+            flex 
+            items-center  
+
+            lg:mx-32
+            lg:my-14
+            "            
+            >
                 <Tittle>{fight + 1} of {FightCard.fights.length} fights</Tittle>
 
                 <div className=" h-11/12 flex flex-col justify-center items-center">

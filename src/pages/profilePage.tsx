@@ -23,12 +23,25 @@ export const ProfilePage = () => {
             <div 
             ref={ref}
             className={`
-                flex flex-col h-screen  mx-40 my-20 gap-12
+                flex flex-col h-screen  
+
+                mx-7 
+                my-10
+                
+                md:mx-30
+                lg:mx-40 
+                lg:my-20 
+                gap-12
                 transition-all duration-600
                 ${visible ? 'opacity-100' : 'opacity-0'}
             `}>
                 <div className="flex">
-                    <img className="border-white border-2 w-50 h-50 rounded-[100%]" />
+                    <img className="border-white border-2 
+                    w-11/12
+                    lg:w-50 
+                    lg:h-50 
+                    md:w-30
+                    rounded-[100%]" />
                     <div className="flex flex-col h-full  mx-5 justify-center">
                         <Text_One>{name}</Text_One>
                         <Text_One>Registred: {formattedDate}</Text_One>
