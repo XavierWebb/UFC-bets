@@ -33,6 +33,7 @@ const FighterSelection = ({ children, onClick, disabled }: FigtherSelection) => 
                 py-4
                 w-full 
                 select-none
+                bg-red-900
 
                 lg:m-2
                 lg:w-md
@@ -63,6 +64,7 @@ export const BetsPage = () => {
     const [betPlaced, setBetPlaced] = useState(false);
     const modalOpen = useSelector((state: RootState) => state.modals.betModal);
     const [disableSkip, setDisableSkip] = useState(false);
+    const user = useSelector((state:RootState) => state.users.currentAccount);
 
     const handleClick = () => {
         const result = FightLogic({
@@ -104,6 +106,9 @@ export const BetsPage = () => {
         }
     }
 
+    if(user.name == ''){
+        navigate('/')
+    }
 
     return (
         <div
@@ -154,7 +159,7 @@ export const BetsPage = () => {
 
             lg:mx-32
             lg:my-14
-            "            
+            "
             >
                 <Tittle>{fight + 1} of {FightCard.fights.length} fights</Tittle>
 
@@ -216,11 +221,13 @@ export const BetsPage = () => {
                                         setFighter(FightCard.fights[fight].fighter_two.name)
                                     }
                                 }}>{FightCard.fights[fight].fighter_two.name}</FighterSelection>
-                            <Button disabled={enableResults} onClick={() => {
-                                setBetPlaced(true);
-                                dispatch(openModal('betModal'))
-                            }}>Bet</Button>
-                            <Button variant="secondary" disabled={disableSkip} onClick={handleClick}>Skip</Button>
+                            <div>
+                                <Button disabled={enableResults} onClick={() => {
+                                    setBetPlaced(true);
+                                    dispatch(openModal('betModal'))
+                                }}>Bet</Button>
+                                <Button variant="secondary" disabled={disableSkip} onClick={handleClick}>Skip</Button>
+                            </div>
                         </>
                     )}
 

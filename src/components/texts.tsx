@@ -6,7 +6,7 @@ interface TextProps {
 
 export const Tittle = ({children}: TextProps) => {
     return (
-        <h1 className="text-white font-koho text-4xl font-extrabold m-4 italic">
+        <h1 className="text-white font-inter text-4xl font-extrabold m-4">
             {children}
         </h1>
     )

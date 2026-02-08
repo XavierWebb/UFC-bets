@@ -3,6 +3,10 @@ import { Navbar } from "../components/navbar";
 import { Text_One } from "../components/texts";
 import type { RootState } from "../redux/store";
 import { useObserver } from "../common/observer";
+import { Button } from "../components/button";
+import { useAppDispatch } from "../redux/hooks";
+import { logout } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
     const {ref, visible} = useObserver();
@@ -11,12 +15,19 @@ export const ProfilePage = () => {
     const earned = useSelector((state: RootState) => state.users.currentAccount.earned)
     const name = useSelector((state: RootState) => state.users.currentAccount.name);
     const registredAt = useSelector((state: RootState) => state.users.currentAccount.registredAt)
+    const user = useSelector((state:RootState) => state.users.currentAccount);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const formattedDate = new Date(registredAt).toLocaleDateString("es-AR", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
     });
+
+    if(user.name == ''){
+        navigate('/')
+    }
     return (
         <>
             <Navbar />
@@ -52,6 +63,11 @@ export const ProfilePage = () => {
                     <Text_One>Wins: {wins}</Text_One>
                     <Text_One>Defeats: {defeats}</Text_One>
                     <Text_One>Earned: {earned}</Text_One>
+                </div>
+                <div>
+                    <Button onClick={()=> {
+                        dispatch(logout(''))
+                    }}>Logout</Button>
                 </div>
             </div>
         </>

@@ -1,6 +1,6 @@
 import type React from "react"
 
-type Variant = "primary" | "secondary" | "tertiary"
+type Variant = "primary" | "secondary" 
 
 interface ButtonProps {
     children: React.ReactNode,
@@ -20,13 +20,10 @@ export const Button = ({
 
     const bgClass = disabled
         ? "bg-gray-500 cursor-not-allowed opacity-60"
-        : variant === "secondary"
-            ? "bg-blue hover:bg-light-blue"
-            : variant === 'primary'
-                ? "bg-red hover:bg-light-red"
-                : variant == 'tertiary'
-                    ? 'bg-transparent text-white hover:text-gray-400'
-                    : ''
+        : variant === "primary"
+            ? "bg-red hover:bg-light-red"
+            : variant === 'secondary'
+                    ? 'bg-transparent text-white hover:text-gray-400' : ''
 
     return (
         <button
