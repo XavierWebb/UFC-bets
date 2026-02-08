@@ -17,9 +17,24 @@ export const Navbar = () => {
             md: justify-end
             md:gap-0
         ">
-            <Button variant="tertiary" onClick={()=>navigate('/')}>Home</Button>
-            <Button variant="tertiary" onClick={()=> dispatch(openModal('walletModal'))}>Wallet</Button>
-            <Button variant="tertiary" onClick={()=>navigate('/profile')}>Profile</Button>
+            <div className="
+                mr-auto 
+                ml-12
+            ">
+                <img src="/UFC.png" 
+                onClick={() => navigate('/')}
+                className="
+                    h-20
+                    w-23
+                    cursor-pointer
+                    md:h-auto
+                    md:w-auto
+                "/>
+            </div>
+            <div>
+                <Button variant="secondary" onClick={() => dispatch(openModal('walletModal'))}>Wallet</Button>
+                <Button variant="secondary" onClick={() => navigate('/profile')}>Profile</Button>
+            </div>
         </div>
     )
 };

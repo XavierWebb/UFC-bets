@@ -1,66 +1,82 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Button } from "../components/button";
+import { Button } from "../components/button"
 import { BaseModal } from "./baseModal"
-import type { RootState } from "../redux/store";
-import { closeModal } from "../redux/modalsSlice";
-import { TextInput } from "../components/textInput";
-import { useForm } from "react-hook-form";
+import { closeModal } from "../redux/modalsSlice"
+import { TextInput } from "../components/textInput"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {z} from 'zod'
-import { Text_One } from "../components/texts";
-import { loginUser } from "../redux/userSlice";
+import { z } from "zod"
+import { Text_One } from "../components/texts"
+import { loginUser } from "../common/login"
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../redux/hooks"
 
 const schema = z.object({
-    name : z.string(),
-    password: z.string(),
+  name: z.string(),
+  password: z.string(),
 })
 
 type FormData = z.infer<typeof schema>
 
 const LoginModal = () => {
-    const dispatch = useDispatch();
-    const modal = useSelector((state: RootState) => state.modals.loginModal);
-    const {
-        handleSubmit,
-        formState: { errors },
-        reset,
-        register
-    } = useForm<FormData>({
-        resolver: zodResolver(schema),
-    });
+  const dispatch = useAppDispatch()
 
-    const onSubmit = (data: FormData) => {
-        dispatch(closeModal('loginModal'))
-        dispatch(loginUser(data))
-        reset()
-    };
+  const user = useAppSelector(state => state.users.currentAccount)
+  const loginError = useAppSelector(state => state.users.loginError)
+  const modal = useAppSelector(state => state.modals.loginModal)
 
-    if (modal) {
-        return (
-            <BaseModal title="Login">
-                <form className='items-center flex flex-col text-center' onSubmit={handleSubmit(onSubmit)}>
-                    <TextInput
-                        placeHolder="name"
-                        {...register('name')}
-                    />
-                    {errors.name && <Text_One>{errors.name.message}</Text_One>}
+  const {
+    handleSubmit,
+    formState: { errors },
+    reset,
+    register,
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  })
 
-                    <TextInput
-                        placeHolder="password"
-                        {...register('password')}
-                    />
-                    {errors.password && <Text_One>{errors.password.message}</Text_One>}
+  const onSubmit = (data: FormData) => {
+    dispatch(loginUser(data))
+  }
 
-                    <div className="my-4">
-                        <Button type='button' variant="secondary" onClick={() => {
-                            dispatch(closeModal('loginModal'));
-                        }}>Cancel</Button>
-                        <Button type='submit'>Continue</Button>
-                    </div>
-                </form>
-            </BaseModal>
-        )
-    } else return null;
-};
+  useEffect(() => {
+    if (user) {
+      dispatch(closeModal("loginModal"))
+      reset()
+    }
+  }, [user, dispatch, reset])
 
-export default LoginModal;
+  if (!modal) return null
+
+  return (
+    <BaseModal title="Login">
+      <form
+        className="items-center flex flex-col text-center"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <TextInput placeHolder="name" {...register("name")} />
+        {errors.name && <Text_One>{errors.name.message}</Text_One>}
+
+        <TextInput placeHolder="password" {...register("password")} />
+        {errors.password && <Text_One>{errors.password.message}</Text_One>}
+
+        {loginError && (
+          <Text_One>
+            {loginError}
+          </Text_One>
+        )}
+
+        <div className="my-4">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => dispatch(closeModal("loginModal"))}
+          >
+            Cancel
+          </Button>
+          <Button type="submit">Continue</Button>
+        </div>
+      </form>
+    </BaseModal>
+  )
+}
+
+export default LoginModal

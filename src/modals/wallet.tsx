@@ -18,7 +18,7 @@ interface MoneyInWallet {
 
 const MoneyInWallet = ({ children }: MoneyInWallet) => {
     return (
-        <div className="bg-gray-800 my-5 p-5 w-full text-center rounded-2xl font-extrabold text-3xl">
+        <div className="bg-real-grey my-5 p-5 w-full text-center rounded-2xl font-extrabold text-3xl">
             {children}
         </div>
     )
@@ -81,8 +81,8 @@ export const Wallet = () => {
                     </MoneyInWallet>
 
                     <div className="flex text-center">
-                        <Button variant="tertiary" onClick={() => dispatch(closeModal('walletModal'))}>Cancel</Button>
-                        <Button variant="tertiary" onClick={() => setStep(2)}>Withdraw</Button>
+                        <Button variant="secondary" onClick={() => dispatch(closeModal('walletModal'))}>Cancel</Button>
+                        <Button variant="secondary" onClick={() => setStep(2)}>Withdraw</Button>
                         <Button onClick={() => setStep(1)}>Deposit</Button>
                     </div>
                 </BaseModal>
@@ -109,7 +109,7 @@ export const Wallet = () => {
                         {errors.amount && <Text_One>{errors.amount.message}</Text_One>}
 
                         <div className="flex">
-                            <Button variant="tertiary" onClick={() => setStep(0)}>Return</Button>
+                            <Button variant="secondary" onClick={() => setStep(0)}>Return</Button>
                             <Button type='submit'>Check transfers</Button>
                         </div>
                     </form>
@@ -133,7 +133,7 @@ export const Wallet = () => {
 
                         <div>
                             <Button onClick={() => setStep(0)}>Return</Button>
-                            <Button variant="tertiary" type='submit' >Withdraw</Button>
+                            <Button variant="secondary" type='submit' >Withdraw</Button>
                         </div>
                     </form>
                 </BaseModal>

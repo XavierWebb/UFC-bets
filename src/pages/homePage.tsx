@@ -1,15 +1,12 @@
-import type React from "react";
-import { Navbar } from "../components/navbar";
-import { Text_Two } from "../components/texts";
-import { Button } from "../components/button";
-import { FightCard } from "../common/fightLogic";
 import { useNavigate } from "react-router-dom";
-import { useObserver } from "../common/observer";
+import { FightCard } from "../common/fightLogic";
+import { Button } from "../components/button";
+import { Navbar } from "../components/navbar"
+import { Text_One, Tittle } from "../components/texts"
 
 interface FighterElement {
     children: React.ReactNode;
 }
-
 const FighterElement = ({ children }: FighterElement) => {
     return (
         <p className="
@@ -44,30 +41,32 @@ const FighterElement = ({ children }: FighterElement) => {
 export const HomePage = () => {
     const fights = FightCard.fights;
     const navigate = useNavigate();
-    const { ref, visible } = useObserver();
-
     const rows = [
+
         fights.slice(0, 1),
         fights.slice(1, 4),
         fights.slice(4, 8)
     ]
-
-
     return (
         <>
             <Navbar />
             <div
-                ref={ref}
                 className={`
-                    flex items-center justify-center flex-col
-                    transition-all duration-700
-                    ${visible ? 'opacity-100' : 'opacity-0'}
-                `}
+                flex flex-col h-screen  
 
-            >
-                <Text_Two>UFC #434</Text_Two>
-                <p className="font-koho font-bold text-white text-md">Main event</p>
-                <div className="flex flex-col items-center w-full">
+                mx-7 
+                my-10
+                
+                md:mx-30
+                lg:mx-40 
+                lg:my-20 
+                gap-12
+                transition-all duration-600
+            `}>
+                <Tittle>Todays event</Tittle>
+
+                <div className=''>
+                    <Text_One>Main fight</Text_One>
                     {
                         rows[0].map((e) => {
                             return (
@@ -75,6 +74,7 @@ export const HomePage = () => {
                                     <FighterElement>
                                         {e.fighter_one.name}
                                     </FighterElement>
+                                    <p className="text-white">vs</p>
                                     <FighterElement>
                                         {e.fighter_two.name}
                                     </FighterElement>
@@ -82,7 +82,8 @@ export const HomePage = () => {
                             )
                         })
                     }
-                    <div className="flex justify-center">
+                    <Text_One>Fights:</Text_One>
+                    <div className="flex">
                         {
                             rows[1].map((e) => {
                                 return (
@@ -90,6 +91,7 @@ export const HomePage = () => {
                                         <FighterElement>
                                             {e.fighter_one.name}
                                         </FighterElement>
+                                        <p className="text-white">vs</p>
                                         <FighterElement>
                                             {e.fighter_two.name}
                                         </FighterElement>
@@ -98,8 +100,7 @@ export const HomePage = () => {
                             })
                         }
                     </div>
-
-                    <div className="flex justify-center">
+                    <div className="flex">
                         {
                             rows[2].map((e) => {
                                 return (
@@ -107,6 +108,7 @@ export const HomePage = () => {
                                         <FighterElement>
                                             {e.fighter_one.name}
                                         </FighterElement>
+                                        <p className="text-white">vs</p>
                                         <FighterElement>
                                             {e.fighter_two.name}
                                         </FighterElement>
@@ -114,11 +116,17 @@ export const HomePage = () => {
                                 )
                             })
                         }
-
                     </div>
+
+                    <Button onClick={()=>{
+                        navigate('/bets')
+                    }}>Bet</Button>
                 </div>
-                <Button onClick={() => navigate('/bets')}>BETS</Button>
+
+                <Tittle>Previous Events</Tittle>
+                <Text_One>There is no previous events registrated.</Text_One>
+
             </div>
         </>
     )
-};
+}

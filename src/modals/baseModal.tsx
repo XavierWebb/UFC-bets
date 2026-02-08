@@ -27,14 +27,12 @@ export const BaseModal = ({
                     flex 
                     flex-col 
                     z-0 
-                    bg-black 
+                    bg-second-black 
                     w-full 
                     max-h-11/12 
                     text-white  
                     items-center 
                     p-10 
-                    border-gray-900 
-                    border-3 
                     rounded-4xl
 
                     lg:w-1/3

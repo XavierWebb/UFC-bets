@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { loginUser } from "../common/login";
 
 type User = {
     id: number,
@@ -26,7 +27,9 @@ type UserType = {
 interface initialStateInter {
     currentAccount: User,
     AllAccounts: User[],
-    nextId: number
+    nextId: number,
+    loginError: string | null,
+    loading: boolean,
 }
 
 const initialState: initialStateInter = {
@@ -42,7 +45,9 @@ const initialState: initialStateInter = {
         registredAt: 'not_yet'
     },
     AllAccounts: [],
-    nextId: 1
+    nextId: 1,
+    loginError: null,
+    loading: false,
 };
 
 const Users = createSlice({
@@ -58,15 +63,9 @@ const Users = createSlice({
             state.currentAccount = newUser;
             state.nextId += 1
         },
-        loginUser: (state, action: PayloadAction<{ name: string, password: string }>) => {
-            const user = state.AllAccounts.find(
-                acc => acc.name == action.payload.name && acc.password == action.payload.password
 
-            );
-
-            if (user) {
-                state.currentAccount = user;
-            }
+        logout: (state, _action) => {
+            state.currentAccount = initialState.currentAccount;
         },
 
         updateBalance: (state, action: PayloadAction<number>) => {
@@ -104,8 +103,24 @@ const Users = createSlice({
                 user.defeats += 1
             }
         }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(loginUser.pending, state => {
+                state.loading = true
+                state.loginError = null
+            })
+            .addCase(loginUser.fulfilled, (state, action) => {
+                state.loading = false
+                state.loginError = null
+                state.currentAccount = action.payload
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.loading = false
+                state.loginError = action.payload as string
+            })
     }
 });
 
 export default Users.reducer;
-export const { createUser, loginUser, updateBalance, setWins, setDefeats } = Users.actions;
+export const { createUser, updateBalance, logout, setWins, setDefeats } = Users.actions;
